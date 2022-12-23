@@ -3,11 +3,11 @@ import {createStore} from 'redux';
 const counterReducer = (state = { counter: 0 }, action) => {
     if (action.type === 'inc') {
         return {
-            counter: state.counter + 5
+            counter: state.counter + action.by
         }
     } else if (action.type === 'dec') {
         return {
-            counter: state.counter - 5
+            counter: state.counter - action.by
         }
     }
     else {
