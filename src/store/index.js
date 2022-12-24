@@ -40,23 +40,22 @@
 
 import { configureStore, createSlice } from "@reduxjs/toolkit"
 
-const initialState = {
-    counter: 0,
+const initialCounterState = {
+    value: 0,
     showCounter: true,
 }
-
 const counterSlice = createSlice({
     name: 'counter',
-    initialState: initialState,
+    initialState: initialCounterState,
     reducers: {
         inc(state) {
-            state.counter++;
+            state.value++;
         },
         dec(state) {
-            state.counter--;
+            state.value--;
         },
         incBy(state, action) {
-            state.counter = state.counter + action.payload;
+            state.value = state.value + action.payload;
         },
         toggleCounter(state) {
             state.showCounter = !state.showCounter;
@@ -64,9 +63,24 @@ const counterSlice = createSlice({
     }
 });
 
+const initialAuthState = {isLogin: false};
+
+const authSlice = createSlice({
+    name: 'Auth',
+    initialState: initialAuthState,
+    reducers: {
+        login(state) {state.isLogin = true},
+        logout(state) {state.isLogin = false}
+    }
+});
+
 const store = configureStore({
-    reducer: counterSlice.reducer
+    reducer: {
+        counter: counterSlice.reducer,
+        auth: authSlice.reducer
+    }
 });
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 export default store;
